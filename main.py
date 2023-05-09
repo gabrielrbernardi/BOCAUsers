@@ -8,7 +8,7 @@ class Main():
         self.passwordLength = 8
         pd.options.mode.chained_assignment = None
         parser = ConfigParser()
-        parser.read("C:\\Users\\gabri\\Documentos\\github\\ScriptInscricaoBOCA\\newVersion\\fileData.ini")
+        parser.read("C:\\Users\\gabri\\Documentos\\github\\BOCAUsers\\fileData.ini")
         # parser.read("C:\\gabriel\\github\\ScriptInscricaoBOCA\\newVersion\\fileData.ini")
 
         self.dt = DataTreatment(parser)
@@ -61,7 +61,7 @@ class Main():
 
     def checkPassword(self, val):
         if val == "admin":
-            return "adminPassword"
+            return self.dt.adPass
         else:
             return self.dt.generatePassword()
         # alfabeto = string.ascii_lowercase + string.digits

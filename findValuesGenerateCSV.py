@@ -14,7 +14,7 @@ class Main():
 
     def readConfigFile(self):
         self.parser = ConfigParser()
-        self.parser.read("C:\\Users\\gabri\\Documentos\\github\\GenerateUsersBOCA\\fileData.ini")
+        self.parser.read("C:\\Users\\gabri\\Documentos\\github\\BOCAUsers\\fileData.ini")
 
         self.filteredColumns = []
 

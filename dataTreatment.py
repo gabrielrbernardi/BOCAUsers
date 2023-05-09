@@ -32,9 +32,10 @@ class DataTreatment():
                 self.csvNameColumn = db["csvnomecoluna"]
                 self.csvLevelColumn = db["csvnivelcoluna"]
                 self.csvBirthColumn = db["csvnascimentocoluna"]
+                self.adPass = db["adpass"]
                 
                 self.neededColumns.append(self.csvNameColumn)
-                self.neededColumns.append(self.csvLevelColumn)
+                # self.neededColumns.append(self.csvLevelColumn)
                 
                 self.outputPath = db["caminhosaidaarquivos"]
                 self.outputGeneralFile = db["xlsxgeralformatado"]
@@ -60,7 +61,7 @@ class DataTreatment():
         self.dataframeInscricao[self.csvNameColumn] = self.dataframeInscricao[self.csvNameColumn].str.strip()
         self.dataframeInscricao[self.csvEmailColumn] = self.dataframeInscricao[self.csvEmailColumn].str.strip()
         self.dataframeInscricao["Idade"] = self.dataframeInscricao[self.csvBirthColumn].apply(self.calculateAge)
-        self.neededColumns.append("Idade")
+        # self.neededColumns.append("Idade")
         self.dataframeInscricao = self.dataframeInscricao.sort_values(by=[self.csvLevelColumn,"Idade",self.csvNameColumn])
         self.dataframeInscricao["Username"] = self.dataframeInscricao[self.csvNameColumn].apply(self.generateUsername)
         self.neededColumns.append("Username")
@@ -92,8 +93,10 @@ class DataTreatment():
         for i in self.classCapacity:
             #Calculo da proporcao em que cada sala possui em relacao a capacidade maxima
             self.proportionListClass.append(i / sum(self.classCapacity))
+            
             #Calculo da quantidade de alunos, de acordo com a proporcao de preenchimento de sala
             self.classFilled.append(math.ceil(i / sum(self.classCapacity) * len(self.dataframeInscricao)))
+        
         self.subscriptionsQuantity = len(self.dataframeInscricao)
         # self.subscriptionsMax = sum(self.classCapacity)
         self.subscriptionsMax = self.quantityMaxSubscriptions
@@ -132,12 +135,6 @@ class DataTreatment():
         return resultado 
     
     def generateUsername(self, nome):
-        # nome = self.clearSpecialCharacters(nome)
-        # nome = nome.split(" ")[0].lower()
-        # if nome in self.usernames:
-        #     nome = nome + str(self.quantidadeUsernames)
-        # else:
-        #     self.usernames.append(nome)
         nome = ("team"+str(self.quantidadeUsernames + 1))
         self.quantidadeUsernames += 1
         return nome

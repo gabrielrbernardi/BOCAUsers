@@ -11,9 +11,6 @@ class UsersBoca():
     def openOutputFile(self):
         self.f = open(self.outputFileUsers, "w")
 
-    def teste(self):
-        return self.dataframeCommonUsers
-
     def generateImportUsers(self):
         lista = []
         # print(self.dataframeCommonUsers)
@@ -33,8 +30,9 @@ class UsersBoca():
             lista.append("\n")
             indice += 1
         
+        indice = 0
         for idx, x in self.dataframeRestrictedUsers.iterrows():
-            lista.append("usernumber=" + str(indice + 1000) + "\n")
+            lista.append("usernumber=" + str(indice + 1100) + "\n")
             lista.append("usersitenumber=" + str(1) + "\n")
             lista.append("username=" + str(x["username"]) + "\n")
             lista.append("userpassword=" + str(x["Senha"]) + "\n")
