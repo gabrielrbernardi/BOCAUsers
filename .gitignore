@@ -7,3 +7,4 @@ venv/
 *insc*.xlsx
 *user*.xlsx
 !*sample*.xlsx
+__pycache__/*
