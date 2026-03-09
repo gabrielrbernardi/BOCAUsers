@@ -1,1 +1,9 @@
 *.ini
+*.env
+*.zip
+venv/
+*import*.txt
+*Insc*.xlsx
+*insc*.xlsx
+*user*.xlsx
+!*sample*.xlsx
