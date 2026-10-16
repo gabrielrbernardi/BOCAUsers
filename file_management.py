@@ -32,16 +32,22 @@ class FileManagement:
             subscritptions_original = pd.read_excel(self.input_path + "//" + input_file)
             # subscritptions_original[column_team_name] = subscritptions_original[column_team_name].astype(str).str.title()
             subscritptions_original[self.column_sheet_team_name] = subscritptions_original[self.column_sheet_team_name].astype(str)
+            # Remove espaços nas pontas e espaços repetidos nos nomes de time e instituição
+            for column in [self.column_sheet_team_name, self.column_sheet_institution]:
+                subscritptions_original[column] = subscritptions_original[column].astype(str).str.split().str.join(" ")
             print(subscritptions_original[self.column_sheet_team_name])
-            sliced_subscriptions = subscritptions_original[[self.column_sheet_institution, self.column_sheet_location, self.column_sheet_team_name]].copy()
+            # Coluna de local é opcional: só é incluída se existir na planilha
+            selected_columns = [self.column_sheet_institution, self.column_sheet_location, self.column_sheet_team_name]
+            selected_columns = [c for c in selected_columns if c != self.column_sheet_location or c in subscritptions_original.columns]
+            sliced_subscriptions = subscritptions_original[selected_columns].copy()
             
             # Adiciona colunas necessárias antes de processar
             sliced_subscriptions[self.column_sheet_id] = None  # Adiciona ID para controle interno
             sliced_subscriptions[self.column_sheet_username] = None
             sliced_subscriptions[self.column_sheet_password] = None
-            sliced_subscriptions[self.column_sheet_team_name_full] = "[" + sliced_subscriptions[self.column_sheet_institution] + "] " + sliced_subscriptions[self.column_sheet_team_name]
-            
             users_df = sliced_subscriptions.sort_values(self.column_sheet_team_name)
+            users_df[self.column_sheet_team_name_full] = "[" + users_df[self.column_sheet_institution] + "] " + users_df[self.column_sheet_team_name]
+            
             
             def process_row(row):
                 nonlocal counter, user_number
