@@ -1,10 +1,34 @@
+# Configuração local (caminhos, colunas e códigos da competição)
 *.ini
 *.env
-*.zip
+!.env.example
+
 venv/
-*import*.txt
+__pycache__/
+.DS_Store
+
+# Planilhas de inscrição e usuários (dados pessoais e senhas); só os exemplos são versionados
+*.xlsx
+!*sample*.xlsx
 *Insc*.xlsx
 *insc*.xlsx
 *user*.xlsx
-!*sample*.xlsx
-__pycache__/*
+input/*
+!input/*sample*.xlsx
+
+# Tudo que é gerado: arquivos de importação do BOCA (senhas), TOMLs do animeitor (secrets),
+# planilhas de mídia, scripts gerados e relatórios de cada competição
+output/*
+*import*.txt
+*secret*.toml
+*.zip
+*.tar.gz
+
+# Fotos e músicas dos times
+animeitor/
+animeitor*/
+animeitor*
+
+# Scripts específicos de uma edição, com nomes de participantes nos arquivos de mídia
+copy_to_animeitor.py
+rename_to_animeitor.py
